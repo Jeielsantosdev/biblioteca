@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Importando Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- Importanto CSS -->
+    <link rel="stylesheet" href=" {% static 'perfil.css' %} ">
+    <link rel="stylesheet" href=" {% static 'style_menu-sidebar.css' %} ">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Projeto biblioteca</title>
+    <link rel="shortcut icon" href=" {% static '/img/favicon.ico' %} " type="image/x-icon">
+    <link rel="stylesheet" href=" {% static 'perfil.css' %} ">
+
+</head>
+<body>
+
+    <!-- BARRAS DE MENU E SIDEBAR -->
+
+    <header class="header container_lateral">
+        <div class="logomarca"><img src=" {% static '/img/Logomarca.png' %} " alt="Logo marca Biblioteca virtual Liceu">
+        </div>
+    </header>
+
+<!-- BARRAS DE MENU E SIDEBAR -->
+
+
+
+
+
+<!-- CONTEÚDO DE CADASTRO USUARIO -->
+    <div class="container-perfil">
+        <img
+        src=" {% static '/img/perfil.png' %} "
+        class="img"
+        alt="Imagem de perfil"
+        />
+    </div>
+
+    <form action="" method="get" class="formulario-cadastro">
+        <div class="content-formulario">
+            <label for="nome" class="label">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" placeholder="Davi" required autofocus>
+        </div>
+
+        <div class="content-formulario">
+            <label for="nascimento" class="label">Data de nascimento</label>
+            <input type="date" class="form-control" id="nascimento" name="data" required min="1950-01-01" max="2025-01-01" >
+        </div>
+
+        <div class="content-formulario">
+            <label for="email" class="label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="example@email.com" required>
+        </div>
+    </form>
+
+    <a class="voltar" href="#">
+        Voltar
+    </a>
+
+B B
+
+
+
+
+
+
+
+    <script src="js/home.js" ></script>
+</body>
+</html>

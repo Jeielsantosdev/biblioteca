@@ -1,0 +1,116 @@
+html{
+    font-size: 62.5%;
+}
+
+:root{
+--primary-color-blue: rgba(9, 39, 80, 1);
+--color-button: rgba(25, 106, 128, 1);
+--color-font: rgba(0, 23, 232, 1);
+--color-main: rgba(203, 203, 203, 1);
+--quadrado-base: rgba(166, 166, 166, 1);
+--perfil-color: rgba(80, 80, 120, 1);
+}
+
+body{
+    background-color: var(--color-main);
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.login_container {
+    background-color: rgb(177, 177, 177);
+    padding: 3rem;
+    border-radius: 3%;
+    box-shadow: 2px 2px 2px rgba(95, 94, 94, 0.488);
+    width: 80%;
+    text-align: center;
+    max-width: 700px;
+}
+
+.logo{
+    display: flex;
+    width: 30vmin;
+}
+
+.perfil{
+width: 14vmin;
+
+}
+
+.btn-link-login{
+    display: block;
+    margin-top: 1rem;
+    background-color: var(--quadrado-base);
+    padding: 0.2rem 2rem;
+    border-radius: 5px;
+    color: var(--color-font);
+    font-family: "Inria Serif", serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.btn-link-login:hover{
+    display: block;
+    margin-top: 1rem;
+    background-color: rgb(149, 149, 149);
+    padding: 0.2rem 2rem;
+    border-radius: 5px;
+    color: var(--color-font);
+    outline: 1px solid ;
+    text-decoration: none;
+}
+
+.label{
+    display: flex;
+    font-family: "Inria Serif", serif;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin: 2rem 0 0;
+    color:var(--color-font)
+}
+
+.formulario-login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-formulario{
+    width: 50%;
+    border-radius: 10px;
+    
+}
+
+
+.form-control{
+    padding: 2rem 0.4rem;
+    box-shadow: 2px 2px 2px rgba(104, 104, 104, 20%);
+
+}
+
+
+.login-caixa{
+    width: 20%; 
+    font-family: "Inria Serif", serif;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin: 2rem 0 0;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+    background-color: rgb(0, 106, 255);
+    margin-bottom: 10px;
+    color: white;
+    text-shadow: .8px .8px rgba(0, 0, 0, 0.8);
+    transition: background-color .5s,;
+}
+
+.login-caixa:hover{
+    background-color: rgb(0, 97, 230);
+    outline: 2px solid white;
+}
+

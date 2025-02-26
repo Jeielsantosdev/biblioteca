@@ -1,0 +1,81 @@
+:root{
+    --primary-color-blue: rgba(9, 39, 80, 1);
+    --color-button: rgba(25, 106, 128, 1);
+    --color-font: rgba(0, 23, 232, 1);
+    --color-main: rgba(203, 203, 203, 1);
+    --quadrado-base: rgba(166, 166, 166, 1);
+    --perfil-color: rgba(80, 80, 120, 1);
+    }
+.formulario-cadastro {
+    max-height: 1000px;
+    background-color: #fff;
+    padding: 2rem; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    width: 800px; 
+    max-width: 100%; 
+    margin: auto;
+    position: absolute;
+    top: 30%;
+    left: 35%;
+    
+}
+    
+.content-formulario {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 1rem; 
+}
+
+.label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1rem 0 0;
+}
+
+.form-control {
+    padding: 2rem; 
+    border: 1px solid #ddd; 
+    border-radius: 4px;
+}
+
+.login-caixa {
+    width: 100%; 
+    padding: 0.75rem; /* Espaçamento interno */
+    border-radius: 4px; /* Bordas arredondadas */
+    background-color: var(--primary-color-blue); /* Cor do botão */
+    color: white; /* Cor do texto */
+    font-size:2rem;
+    cursor: pointer; 
+    transition: background-color 0.5s; 
+}
+
+.login-caixa:hover {
+    background-color: #0056b3; /* Cor ao passar o mouse */
+}    
+
+
+.suggestions {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+  
+    
+    
+    

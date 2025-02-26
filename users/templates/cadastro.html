@@ -1,0 +1,106 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Importando Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- Importanto CSS -->
+    <link rel="stylesheet" href=" {% static 'normalize.css' %} ">
+    <link rel="stylesheet" href=" {% static 'style_menu-sidebar.css' %} ">
+    <link rel="stylesheet" href=" {% static 'cadastro-usuario.css'%} ">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Projeto biblioteca</title>
+    <link rel="shortcut icon" href=" {% static '/img/favicon.ico' %} " type="image/x-icon">
+
+
+</head>
+<body>
+
+    <!-- BARRAS DE MENU E SIDEBAR -->
+
+    <header class="header container_lateral">
+        <div class="logomarca"><img src=" {% static '/img/Logomarca.png' %} " alt="Logo marca Biblioteca virtual Liceu">
+        </div>
+    </header>
+
+<!-- BARRAS DE MENU E SIDEBAR -->
+
+
+
+
+
+<!-- CONTEÚDO DE CADASTRO USUARIO -->
+    {% if messages %}
+    {% for message in messages  %}
+         <div class="rounded-md {{message.tags}} ">
+                <div class="flex">
+                    <div class="ml-3 py-4">
+                        {{message}}
+                    </div>
+              </div>
+         </div>
+    {% endfor %}
+    {% endif %}
+    <form action=" {% url 'cadastro' %} " method="POST" class="formulario-cadastro" enctype="multipart/form-data"> {% csrf_token %}
+
+        
+        <div class="d-flex justify-content-sm-center mx-100">
+            {% comment %} <label for="foto" class="block mt-2 text-sm/6 font-medium text-gray-600">Foto</label>
+            <div class="mt-5 row d-flex justify-content-center"> {% endcomment %}
+                <div class="file-container">
+                    <input type="file" id="file" class="file-input">
+                    <label for="file" class="file-label">📁</label>
+                </div>
+
+          </div>
+        </div>
+        
+        <div class="content-formulario">
+            <label for="nome" class="label">Nome</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Davi" required autofocus>
+        </div>
+
+        <div class="content-formulario">
+            <label for="email" class="label">E-mail</label>
+            <input type="email" class="form-control" id="user_email" name="user_email" placeholder="example@email.com" required>
+        </div>
+
+        <div class="content-formulario">
+            <label for="senha" class="label">Senha</label>
+            <input type="password" class="form-control" id="senha" name="senha" required>
+        </div>
+
+        <div class="content-formulario">
+            <label for="nascimento" class="label">Data de nascimento</label>
+            <input type="date" class="form-control" id="date_birth" name="date_birth" required min="1950-01-01" max="2025-01-01" >
+        </div>
+
+
+        <button type="submit" class=" login-caixa">Criar</button>
+    </form>
+    <div class="box-voltar"></div>
+    <a class="voltar" href="#">
+        Voltar
+    </a>
+
+
+<!-- CONTEÚDO DE CADASTRO USUARIO -->
+
+
+
+
+
+
+
+
+    
+</body>

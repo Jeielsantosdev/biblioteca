@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+
+:root{
+--primary-color-blue: rgba(9, 39, 80, 1);
+--color-button: rgba(25, 106, 128, 1);
+--color-font: rgba(0, 23, 232, 1);
+--color-main: rgba(203, 203, 203, 1);
+--quadrado-base: rgba(166, 166, 166, 1);
+--perfil-color: rgba(80, 80, 120, 1);
+}
+
+html{
+    font-size: 62.5%;
+}
+
+.content-categorias {
+    position: absolute;
+    top: 23vh;
+    left: 25vw;
+    width: 70vw;
+    max-width: 65vw;
+    max-height: 100vh;
+
+}
+
+.content-categorias ul{
+    list-style: none;
+    display: flex;
+    gap: 10rem;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+
+
+}
+
+.content-categorias a{
+    background-color: var(--color-main);
+    width: 150px;
+    padding: 2rem 4rem;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.341);
+    border-radius: 5px;
+    font-family: "Inria Sans", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: background-color 0.5s, color .5s, outline .5s;
+
+    text-decoration: none;
+}
+
+.content-categorias a:hover{
+    text-decoration: none;
+    background-color: rgb(190, 190, 190);
+    color: rgb(123, 116, 255);
+    outline: 0.3px solid white;
+}

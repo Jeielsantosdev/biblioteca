@@ -1,0 +1,129 @@
+body{
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+--primary-color-blue: rgba(9, 39, 80, 1);
+--color-button: rgba(25, 106, 128, 1);
+--color-font: rgba(0, 23, 232, 1);
+--color-main: rgba(203, 203, 203, 1);
+--quadrado-base: rgba(166, 166, 166, 1);
+--perfil-color: rgba(80, 80, 120, 1);
+}
+
+.formulario-cadastro {
+    max-height: 800px;
+    background-color: #fff;
+    padding: 2rem; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    width: 500px; 
+    max-width: 100%; 
+    margin: auto;
+    position: relative;
+    top: 11rem;
+}
+
+.content-formulario {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 1rem; 
+}
+
+.label {
+    font-size: 1.5rem;
+    margin-right: 1.4rem;
+    font-weight: bold; 
+}
+
+.form-control {
+    padding: 2rem; 
+    border: 1px solid #ddd; 
+    border-radius: 4px;
+}
+
+.login-caixa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    margin: auto; 
+    padding: 0.75rem; /* Espaçamento interno */
+    border-radius: 4px; /* Bordas arredondadas */
+    background-color: var(--primary-color-blue); /* Cor do botão */
+    height: 4rem;
+    color: white; /* Cor do texto */
+    font-size:2rem;
+    cursor: pointer; 
+    transition: background-color 0.5s; 
+}
+
+.login-caixa:hover {
+    background-color: #0056b3; /* Cor ao passar o mouse */
+}
+
+
+
+.voltar{
+    position: relative;
+    display: block;
+    text-align: center;
+    width: 100px;
+    margin: 150px auto 0;
+
+
+    /* position: relative;
+    top: 150px;
+    left: 47.5vw; */
+    background-color: var(--color-button);
+    padding: 1rem 3rem;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1.2rem;
+    transition: color 0.5s, outline 0.5s;
+}
+.voltar:hover{
+    text-decoration: none;
+    color: rgb(187, 255, 255);
+    outline: 1px solid black;
+}
+
+
+.adicionar_foto {
+    flex: auto;
+    margin: 5%;
+    justify-content: center;
+    align-content: center;
+    background-image: url();
+}
+
+.file-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(9, 39, 80, 1);
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.file-label:hover {
+    background-color: #003cff;
+}
+
+.file-input {
+    display: none;
+}
