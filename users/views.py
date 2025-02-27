@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect,get_object_or_404
 from .models import Cadastro
 from django.contrib import messages
 from django.contrib.messages import constants
-from django.http import HttpResponse,Http404
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
@@ -71,17 +70,19 @@ def cadastro(request):
        
         messages.success(request, 'Cadastro realizado! Verifique seu e-mail para ativação.')
         return redirect(reverse("activate",kwargs={"id":cadastro.id}))
+
 def activate(request, id):
-    user = get_object_or_404(Cadastro,id=id)
+    user = get_object_or_404(Cadastro, id=id)
 
     if user.is_active:
-
-        return render(request,'activate.html', {'username':user.username,'already_active':True })
+        messages.info(request, f"A conta de {user.username} já está ativa.")
+        return render(request, 'activate.html', {'username': user.username, 'already_active': True})
+    
     user.is_active = True
     user.save()
-   # return redirect('login')
-    
-    return render(request, 'activate.html', {'username': user.username, 'already_active': False})
+
+    messages.success(request, f"A conta de {user.username} foi ativada com sucesso!")
+    return redirect('login')  # Redireciona para a página de login após a ativação
 
 def login(request):
     if request.method == "POST":
