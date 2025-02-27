@@ -53,13 +53,9 @@
     <div class="container">
         <h2>Bem-vindo, {{ username }}!</h2>
         <p>Obrigado por se cadastrar. Para ativar sua conta, clique no botão abaixo:</p>
-        <a id="  "  href=" {% url 'login' %} " class="btn">Ativar Conta</a>
+        <a id="  "  href=" {{activation}} " class="btn">Ativar Conta</a>
         <p class="footer">Se você não solicitou este e-mail, ignore esta mensagem.</p>
-        {% if already_active %}
-            <p class="footer" >A conta de {{ username }} já está ativa. Você pode <a href="{% url 'login' %}"class="btn" >fazer login aqui</a>.</p>
-        {% else %}
-            <p class="footer" >A conta de {{ username }} foi ativada com sucesso! Agora você pode <a href="{% url 'login' %}">fazer login aqui</a>.</p>
-        {% endif %}
+        
 
     </div>
 

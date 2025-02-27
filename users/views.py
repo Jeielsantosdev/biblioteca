@@ -47,12 +47,12 @@ def cadastro(request):
             return redirect('cadastro')
         
 
-        cadastro = Cadastro(username=username,user_email=user_email,date_birth=date_birth,senha=make_password(senha),foto=foto)
-        cadastro.is_active = False
+        cadastro = Cadastro(username=username,user_email=user_email,date_birth=date_birth,senha=make_password(senha),foto=foto, is_active=False)
+        
         cadastro.save()
 
-        activation = request.build_absolute_uri(f"activate/{cadastro.id}/")
-        #activation = f"http://{settings.ALLOWED_HOSTS[0]}:8000/cadastro/activation/{cadastro.id}"
+        activation = request.build_absolute_uri(reverse("activate", kwargs={"id": cadastro.id}))
+
         subject = "Ative sua conta"
         html_message = render_to_string("activate.html", {
         "username": cadastro.username,
@@ -69,7 +69,8 @@ def cadastro(request):
 
        
         messages.success(request, 'Cadastro realizado! Verifique seu e-mail para ativação.')
-        return redirect(reverse("activate",kwargs={"id":cadastro.id}))
+        #return redirect(reverse("activate",kwargs={"id":cadastro.id}))
+        return redirect('login')
 
 def activate(request, id):
     user = get_object_or_404(Cadastro, id=id)
@@ -82,7 +83,7 @@ def activate(request, id):
     user.save()
 
     messages.success(request, f"A conta de {user.username} foi ativada com sucesso!")
-    return redirect('login')  # Redireciona para a página de login após a ativação
+    return redirect('login')  # Redireciona para o login
 
 def login(request):
     if request.method == "POST":
