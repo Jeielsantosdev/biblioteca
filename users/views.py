@@ -52,6 +52,7 @@ def cadastro(request):
         cadastro.save()
 
         activation = request.build_absolute_uri(reverse("activate", kwargs={"id": cadastro.id}))
+        #0.0.0activation = request.build_absolute_uri(f'http:'{"id": cadastro.id})
 
         subject = "Ative sua conta"
         html_message = render_to_string("activate.html", {
