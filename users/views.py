@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect,get_list_or_404,get_object_or_404
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import Cadastro
 from django.contrib import messages
 from django.contrib.messages import constants
@@ -8,6 +8,11 @@ from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+#from django.contrib.auth.models import user
+
+
 
 # Função para validar a senha
 def validate_password(password):
@@ -47,7 +52,8 @@ def cadastro(request):
         cadastro.is_active = False
         cadastro.save()
 
-        activation = request.build_absolute_uri(f"/activate/{cadastro.id}/")
+        activation = request.build_absolute_uri(f"activate/{cadastro.id}/")
+        #activation = f"http://{settings.ALLOWED_HOSTS[0]}:8000/cadastro/activation/{cadastro.id}"
         subject = "Ative sua conta"
         html_message = render_to_string("activate.html", {
         "username": cadastro.username,
@@ -64,7 +70,7 @@ def cadastro(request):
 
        
         messages.success(request, 'Cadastro realizado! Verifique seu e-mail para ativação.')
-        return redirect(f'/activate/{cadastro.id}/')
+        return redirect(reverse("activate",kwargs={"id":cadastro.id}))
 def activate(request, id):
     user = get_object_or_404(Cadastro,id=id)
 
@@ -73,5 +79,35 @@ def activate(request, id):
         return render(request,'activate.html', {'username':user.username,'already_active':True })
     user.is_active = True
     user.save()
+   # return redirect('login')
     
     return render(request, 'activate.html', {'username': user.username, 'already_active': False})
+
+def login(request):
+    if request.method == "POST":
+        user_email = request.POST.get('user_email')
+        senha = request.POST.get('senha')
+
+        user = authenticate(request, user_email=user_email, senha=senha)
+        if user is not None:
+            if user.is_active:
+
+                login(request,user)
+                messages.success(request, "Login realizado com sucesso!")
+                return redirect('home')
+            else:
+                messages.error(request, "Sua conta ainda esta desativada")
+        else:
+            messages.error(request, "E-mail ou Senha incorretos")
+
+    return render(request, 'login.html')
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, "Você saiu da sua conta!")
+    return redirect("login")
+
+
+@login_required
+def home(request):
+    return render(request, "home.html")

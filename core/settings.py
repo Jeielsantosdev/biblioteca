@@ -133,3 +133,21 @@ MESSAGE_TAGS = {
     constants.SUCCESS: 'bg-green50 text-green-700',
     constants.ERROR: 'bg-red-50 text-red-700',
 }
+
+LOGIN_URL = "/login/"
+
+
+from dotenv import load_dotenv
+
+load_dotenv()  # Carregar variáveis do arquivo .env
+
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'  # Use 'apikey' como o nome de usuário
+EMAIL_HOST_PASSWORD =  os.getenv("SENDGRID_API_KEY")  # Sua chave de API do SendGrid
+DEFAULT_FROM_EMAIL = 'jeielantos29@gmail.com'

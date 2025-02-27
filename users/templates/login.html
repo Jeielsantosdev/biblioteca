@@ -29,8 +29,13 @@
         >
         <img class="perfil" src=" {% static '/img/perfil.png' %} " alt="Imagem de perfil">
 
+        {% if messages %}
+            {% for message in messages %}
+                <p class="error">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
         
-        <form action="#" method="get" class="formulario-login">
+        <form action=" {% url 'login' %} " method="POST" class="formulario-login"> {% csrf_token %}
             <div class="content-formulario">
                 <label for="email" class="label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="example@email.com" required autofocus>
@@ -41,10 +46,12 @@
                 <input type="password" class="form-control" id="password" name="senha" placeholder="123456" required autocomplete="off">
             </div>
 
-            <button type="submit" class="  login-caixa">LOGIN</button>
-        
+            
+            <br>
+            <a href=" {% url 'home' %} " class="login-caixa" >LOGIN</a>
+            
             <a href="#" class="btn-link-login" aria-label="Entrar como visitante">Entrar como visitante</a>
-            <a href="#" class="btn-link-login" aria-label="Criar conta">Criar Conta</a>
+            <a href=" {% url 'cadastro' %} " class="btn-link-login" aria-label="Criar conta">Criar Conta</a>
         </form>
 
         
