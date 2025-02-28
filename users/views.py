@@ -99,7 +99,6 @@ def login_view(request):
             
             if check_password(senha, user.senha):  # Verifica a senha de forma segura
                 if user.is_active:
-                    # Atualiza o campo last_login
                     user.last_login = now()
                     user.save()
                     

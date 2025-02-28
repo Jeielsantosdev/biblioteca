@@ -9,12 +9,11 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+from dotenv import load_dotenv
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,8 +28,19 @@ SECRET_KEY = 'django-insecure-hcuaj-ohm4y(1vqgdla=v49s4ohjx*s%-*)k2^%mzwka@qr)+(
 DEBUG = True
 
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
-CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
+load_dotenv()
+
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".ngrok-free.app",  # Permite qualquer subdomínio ngrok
+]
+   #os.getenv("ALLOWED_HOSTS", "localhost").split(",")
+CSRF_TRUSTED_ORIGINS = [
+    "http://*.ngrok-free.app",  # Tenta com http, se não funcionar o https
+    "https://*.ngrok-free.app",  # Para https
+]
+
 
 
 # Application definition
@@ -56,6 +66,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
+
+LOGIN_REDIRECT_URL = '/' 
+LOGIN_URL = '/login/'
+
 
 TEMPLATES = [
     {
@@ -139,10 +153,10 @@ MESSAGE_TAGS = {
     constants.ERROR: 'bg-red-50 text-red-700',
 }
 
-LOGIN_URL = "/login/"
 
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Certifique-se de estar usando o backend de sessões correto
+
+  # Certifique-se de estar usando o backend de sessões correto
 
 
 load_dotenv()  # Carregar variáveis do arquivo .env
