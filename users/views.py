@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import Cadastro
 from django.contrib import messages
-from django.contrib.messages import constants
+from django.utils.timezone import now
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
@@ -9,6 +9,8 @@ from django.urls import reverse
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
 #from django.contrib.auth.models import user
 
 
@@ -86,23 +88,35 @@ def activate(request, id):
     messages.success(request, f"A conta de {user.username} foi ativada com sucesso!")
     return redirect('login')  # Redireciona para o login
 
-def login(request):
+def login_view(request):
     if request.method == "POST":
         user_email = request.POST.get('user_email')
-        senha = request.POST.get('senha')
-
-        user = authenticate(request, user_email=user_email, senha=senha)
-        if user is not None:
-            if user.is_active:
-
-                login(request,user)
-                messages.success(request, "Login realizado com sucesso!")
-                return redirect('home')
+        senha = request.POST.get("senha")
+        
+        try:
+            user = Cadastro.objects.get(user_email=user_email)
+            print(f"Usuário encontrado: {user}")  # Verifique se o usuário está sendo encontrado
+            
+            if check_password(senha, user.senha):  # Verifica a senha de forma segura
+                if user.is_active:
+                    # Atualiza o campo last_login
+                    user.last_login = now()
+                    user.save()
+                    
+                    login(request, user)  # Realiza o login do usuário
+                    print(f"Usuário autenticado: {request.user}")  # Verifique se o login foi bem-sucedido
+                    
+                    return redirect('home')  # Redireciona para a página 'home'
+                else:
+                    messages.error(request, "Sua conta está desativada, verifique seu email para ativá-la.")
             else:
-                messages.error(request, "Sua conta ainda esta desativada")
-        else:
-            messages.error(request, "E-mail ou Senha incorretos")
-
+                messages.error(request, "E-mail ou Senha incorretos.")
+        
+        except Cadastro.DoesNotExist:
+            messages.error(request, "Usuário não encontrado.")
+        
+        return redirect('login')
+    
     return render(request, 'login.html')
 
 def user_logout(request):

@@ -28,8 +28,9 @@ SECRET_KEY = 'django-insecure-hcuaj-ohm4y(1vqgdla=v49s4ohjx*s%-*)k2^%mzwka@qr)+(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.7", "127.0.0.1", "localhost"]
 
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
 
 
 # Application definition
@@ -141,6 +142,7 @@ MESSAGE_TAGS = {
 LOGIN_URL = "/login/"
 
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Certifique-se de estar usando o backend de sessões correto
 
 
 load_dotenv()  # Carregar variáveis do arquivo .env

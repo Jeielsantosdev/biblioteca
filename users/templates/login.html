@@ -38,12 +38,12 @@
         <form action=" {% url 'login' %} " method="POST" class="formulario-login"> {% csrf_token %}
             <div class="content-formulario">
                 <label for="email" class="label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="example@email.com" required autofocus>
+                <input type="email" class="form-control" id="user_email" name="user_email" placeholder="email...." required autofocus>
             </div>
 
             <div class="content-formulario">
                 <label for="senha" class="label">Senha</label>
-                <input type="password" class="form-control" id="password" name="senha" placeholder="123456" required autocomplete="off">
+                <input type="password" class="form-control" id="senha" name="senha" placeholder="senha...." required autocomplete="off">
             </div>
 
             
