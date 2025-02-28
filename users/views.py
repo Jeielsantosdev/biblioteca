@@ -94,10 +94,10 @@ def login_view(request):
         senha = request.POST.get("senha")
         
         try:
-            user = Cadastro.objects.get(user_email=user_email)
-            print(f"Usuário encontrado: {user}")  # Verifique se o usuário está sendo encontrado
+            user = authenticate(request, user_email=user_email, senha=senha)
+           
             
-            if check_password(senha, user.senha):  # Verifica a senha de forma segura
+            if user is not None:  # Verifica a senha de forma segura
                 if user.is_active:
                     user.last_login = now()
                     user.save()
@@ -127,3 +127,8 @@ def user_logout(request):
 @login_required
 def home(request):
     return render(request, "home.html")
+
+def perfil_view(request):
+
+    return render(request, 'perfil.html')
+    ...

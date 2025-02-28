@@ -27,6 +27,10 @@ SECRET_KEY = 'django-insecure-hcuaj-ohm4y(1vqgdla=v49s4ohjx*s%-*)k2^%mzwka@qr)+(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ # Substitua "seu_app" pelo nome do seu aplicativo
+
+AUTHENTICATION_BACKENDS = ['users.authenticatio_backends.BackendDeAutenticacao']
+
 
 load_dotenv()
 

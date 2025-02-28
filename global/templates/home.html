@@ -45,7 +45,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
+                    <a href=" {% url 'perfil' %} " target="_blank" rel="noopener noreferrer">
                     <img src=" {% static '/img/perfil.png' %} " alt="Imagem de perfil" class="img-perfil">
                     <h3 class="texto_perfil">Perfil</h3>
                     </a>
@@ -70,7 +70,7 @@
         <br>
         <br>
         <br>
-        <li><a class="texto_caixa" href=" {{ logout }} ">SAIR</a></li>
+        <li><a class="texto_caixa" href=" {% url 'logout' %} ">SAIR</a></li>
         <!-- <li><a href="#">sobre</a></li>
         <li><a href="#">contatos</a></li> -->
     </ul>
