@@ -9,18 +9,20 @@ from django.urls import reverse
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import check_password
-#from django.contrib.auth.models import user
+import re
 
 
 
-# Função para validar a senha
+
 def validate_password(password):
-    if len(password) < 8:
-        raise ValidationError("A senha deve ter pelo menos 6 caracteres.")
-    if len(password) > 8:
-        raise ValidationError("A senha não pode ter mais que 8 caracteres.")
+    if len(password) != 8:
+        raise ValidationError("A senha deve ter exatamente 8 caracteres.")
+
+    if not re.search(r'[A-Za-z]', password):  # Verifica se tem pelo menos uma letra
+        raise ValidationError("A senha deve conter pelo menos uma letra.")
+
+    if not re.search(r'\d', password):  # Verifica se tem pelo menos um número
+        raise ValidationError("A senha deve conter pelo menos um número.")
 
 def cadastro(request):
 
@@ -47,14 +49,18 @@ def cadastro(request):
         if Cadastro.objects.filter(user_email=user_email).exists():
             messages.error(request,'Erro: E-mail já cadastrado')
             return redirect('cadastro')
-        
+        try:
+            validate_password(senha)
+        except ValidationError as e:
+            messages.error(request, str(e))  # Exibir mensagem de erro para o usuário
+            return redirect('cadastro')
 
         cadastro = Cadastro(username=username,user_email=user_email,date_birth=date_birth,senha=make_password(senha),foto=foto, is_active=False)
         
         cadastro.save()
 
         activation = request.build_absolute_uri(reverse("activate", kwargs={"id": cadastro.id}))
-        #0.0.0activation = request.build_absolute_uri(f'http:'{"id": cadastro.id})
+       
 
         subject = "Ative sua conta"
         html_message = render_to_string("activate.html", {
@@ -126,9 +132,77 @@ def user_logout(request):
 
 @login_required
 def home(request):
-    return render(request, "home.html")
-
+    if request.method == "GET":
+        cadastro = Cadastro.objects.all()
+    return render(request, "home.html", {'cadastro':cadastro})
+@login_required
 def perfil_view(request):
+    
 
-    return render(request, 'perfil.html')
-    ...
+    return render(request, 'perfil.html', )
+
+def delete_view(request, id):
+    if not request.user.is_authenticated:
+        messages.error(request, "Você precisa estar logado para deletar sua conta.")
+        return redirect('login')
+
+    if request.user.id != id:
+        messages.error(request, "Você não tem permissão para deletar esta conta.")
+        return redirect('perfil')
+
+    usuario = get_object_or_404(Cadastro, id=id)
+    usuario.delete()
+    
+    logout(request)  # Desloga o usuário após deletar a conta
+    messages.success(request, "Conta deletada com sucesso.")
+    return redirect('login')
+
+def update_view(request):
+    if not request.user.is_authenticated:
+        messages.error(request,"Voçê precisa fazer login")
+        return redirect('login')
+    users = get_object_or_404(Cadastro,id=request.user.id)
+
+    if request.method == "POST":
+        username = request.POST.get('username', '').strip()
+        user_email = request.POST.get('user_email', '').strip()
+        senha = request.POST.get('senha', '').strip()
+        foto = request.FILES.get('foto')
+
+        if not username or not user_email:
+            messages.error(request,"O nome e o email não podem está vazios")
+            return redirect('update')
+        
+        email_autrld = users.user_email != user_email
+
+        users.username = username
+        users.user_email = user_email
+
+        if senha:
+            users.set_password(senha)
+        if foto:
+            users.foto = foto
+        users.save()
+        
+        if email_autrld: 
+            activation = request.build_absolute_uri(reverse("activate", kwargs={"id": cadastro.id}))
+       
+
+            subject = "Ative sua conta"
+            html_message = render_to_string("activate.html", {
+            "username": cadastro.username,
+            "activation": activation
+            })
+            send_mail(
+                subject,
+                f"Olá {cadastro.username}, clique no link para ativar sua conta: {activation}",
+                "jeielsantos29@gmail.com",  # Endereço do remetente
+                [user_email],  # Endereço do destinatário
+                fail_silently=False,
+                html_message=html_message
+            )
+            messages.success(request,"Conta atualizada! Verifique seu novo email para ativação.")
+        else:
+            messages.success(request,"Conta atualizada com sucesso!")
+        return redirect('perfil')
+    return render(request,'update.html', {'users':users})

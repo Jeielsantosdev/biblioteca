@@ -11,6 +11,7 @@ height: 100vh;
 --color-main: rgba(203, 203, 203, 1);
 --quadrado-base: rgba(166, 166, 166, 1);
 --perfil-color: rgba(80, 80, 120, 1);
+--backgound-color-logo: #74859b;
 }
 
 
@@ -18,7 +19,7 @@ height: 100vh;
 
 .formulario-cadastro {
 max-height: 800px;
-background-color: #fff;
+background-color: var(--backgound-color-logo);
 padding: 2rem; 
 border-radius: 8px; 
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
@@ -35,9 +36,10 @@ align-items: center;
 }
 
 .label {
-font-size: 1.5rem;
+font-size: 3rem;
 margin-right: 1.4rem;
 font-weight: bold; 
+
 }
 
 .fo B MFVrm-control {
@@ -61,17 +63,17 @@ transition: background-color 0.5s;
 background-color: #0056b3; /* Cor ao passar o mouse */
 }
 
-.voltar{
-    position: relative;
-    top: 150px;
-    left: 47.5vw;
+.voltar {
     background-color: var(--color-button);
     padding: 1rem 3rem;
     border-radius: 5px;
     color: #fff;
     font-size: 1.2rem;
     transition: color 0.5s, outline 0.5s;
-    margin-bottom: 100px;
+    margin-top: 20vh; /* Ajuste o valor conforme necessário */
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 .voltar:hover{
     text-decoration: none;
@@ -83,4 +85,32 @@ background-color: #0056b3; /* Cor ao passar o mouse */
     display: flex;
     justify-content: center;
     height: 150px;
+    margin-top: 5rem;
+}
+
+.container-perfil img {
+    width: 120px; /* Ajuste conforme necessário */
+    height: 120px; /* Deve ser igual à largura para manter o formato circular */
+    border-radius: 50%; /* Transforma a imagem em um círculo */
+    object-fit: cover; /* Garante que a imagem seja bem ajustada dentro do círculo */
+}
+
+
+.deletar{
+    background-color: var(--color-button);
+    padding: 1rem 1rem;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1.2rem;
+    transition: color 0.5s, outline 0.5s;
+    margin-top:2rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.deletar:hover{
+    text-decoration: none;
+    color: rgb(187, 255, 255);
+    outline: 1px solid black;
 }

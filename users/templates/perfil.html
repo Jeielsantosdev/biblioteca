@@ -12,14 +12,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 
     <!-- Importanto CSS -->
-    <link rel="stylesheet" href=" {% static 'perfil.css' %} ">
-    <link rel="stylesheet" href=" {% static 'style_menu-sidebar.css' %} ">
-
-
+    
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href=" {% static 'perfil.css' %} ">
+    <link rel="stylesheet" href=" {% static 'style_menu-sidebar_perfil.css' %} ">
     <title>Projeto biblioteca</title>
     <link rel="shortcut icon" href=" {% static '/img/favicon.ico' %} " type="image/x-icon">
-    <link rel="stylesheet" href=" {% static 'perfil.css' %} ">
 
 </head>
 <body>
@@ -38,36 +37,51 @@
 
 
 <!-- CONTEÚDO DE CADASTRO USUARIO -->
-    <div class="container-perfil">
-        <img
-        src=" {% static '/img/perfil.png' %} "
-        class="img"
-        alt="Imagem de perfil"
-        />
-    </div>
+    {% if user.is_authenticated %}
+        
+    {% endif %}
+    <form action=" {% url 'perfil' %} " method="GET" class="formulario-cadastro">
+        {% if user.is_authenticated %}
+        <div class="d-flex  flex-column">
+            <div class="content-formulario m-auto">
+                <label for="nome" class="label"> {{user.username}} </label>
+                
+            </div>
 
-    <form action="" method="get" class="formulario-cadastro">
-        <div class="content-formulario">
-            <label for="nome" class="label">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" placeholder="Davi" required autofocus>
-        </div>
+            <div class="content-formulario m-auto">
+                <label for="nascimento" class="label"> {{user.date_birth}} </label>
+                
+            </div>
 
-        <div class="content-formulario">
-            <label for="nascimento" class="label">Data de nascimento</label>
-            <input type="date" class="form-control" id="nascimento" name="data" required min="1950-01-01" max="2025-01-01" >
+            <div class="content-formulario m-auto">
+                <label for="email" class="label"> {{ user.user_email }} </label>
+                
+            </div>
         </div>
-
-        <div class="content-formulario">
-            <label for="email" class="label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="example@email.com" required>
-        </div>
+        {% endif %}
     </form>
 
-    <a class="voltar" href="#">
-        Voltar
-    </a>
+    <div class="d-flex flex-column mt-3 justify-content-center align-items-center">
+        <a class="voltar" href=" {% url 'home' %} ">
+            Voltar
+        </a>
+        <form action="{% url 'delete' user.id %}" method="POST" >
+            {% csrf_token %}
+            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir sua conta?')" class="deletar">
+                Deletar Conta
+            </button>
+        </form>
+        <form action="{% url 'update'  %}" method="POST" >
+            {% csrf_token %}
+            <button class="deletar">
+                update
+            </button>
+        </form>
+    </div>
+    
+    
 
-B B
+
 
 
 

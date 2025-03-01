@@ -4,10 +4,9 @@
 
 
 body{
-    background-color: blue;
     margin: 0;
     padding: 0;
-    background: var(--color-main);
+    background-color: var(--backgound-color-logo);
 
 }
 
@@ -24,6 +23,7 @@ html{
     --color-main: rgba(203, 203, 203, 1);
     --quadrado-base: rgba(166, 166, 166, 1);
     --perfil-color: rgba(80, 80, 120, 1);
+    --backgound-color-logo: #74859b;
 }
 
 /* CSS da Nav */
@@ -101,14 +101,10 @@ html{
     color: #555; /* Cor quando o ícone é hoverado */
 }
 
-#pesquisa_header{
-    padding: 0.5rem 1.8rem;
-    border-radius: 5px;
-}
 
 
 .texto_perfil{
-    margin-top: 1rem;
+    margin-top: 0;
     font-family: "Castoro", serif;
     font-weight: 500;
     font-style: normal;
@@ -119,12 +115,7 @@ html{
 
 
 .img-perfil { 
-    width: 9rem; /* Ajuste conforme necessário */
-    height: 9rem; /* Deve ser igual à largura para manter o formato circular */
-    border-radius: 50%; /* Transforma a imagem em um círculo */
-    object-fit: cover; /* Garante que a imagem seja bem ajustada dentro do círculo */
-     /* Opcional: adiciona uma borda branca */
-    
+    background-color: red;
 }
 
 /* CSS do Side bar */
