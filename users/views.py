@@ -159,50 +159,63 @@ def delete_view(request, id):
 
 def update_view(request):
     if not request.user.is_authenticated:
-        messages.error(request,"Voçê precisa fazer login")
+        messages.error(request, "Você precisa fazer login")
         return redirect('login')
-    users = get_object_or_404(Cadastro,id=request.user.id)
+
+    users = get_object_or_404(Cadastro, id=request.user.id)
+
+    if request.method == "GET":
+        return render(request, 'update.html', {'users': users})
 
     if request.method == "POST":
-        username = request.POST.get('username', '').strip()
+        username = request.POST.get('username', '').strip()  # Se não preencher, vai ser vazio
         user_email = request.POST.get('user_email', '').strip()
         senha = request.POST.get('senha', '').strip()
         foto = request.FILES.get('foto')
 
-        if not username or not user_email:
-            messages.error(request,"O nome e o email não podem está vazios")
-            return redirect('update')
-        
-        email_autrld = users.user_email != user_email
+        email_autrld = False
 
-        users.username = username
-        users.user_email = user_email
+        # Só atualiza o username se foi preenchido
+        if username:  # Se o campo não estiver vazio, atualiza
+            users.username = username
 
+        # Só atualiza o user_email se foi preenchido e for diferente do atual
+        if user_email and user_email != users.user_email:  # Se o e-mail foi alterado
+            email_autrld = True
+            users.user_email = user_email
+
+        # Se a senha foi preenchida, atualiza
         if senha:
             users.set_password(senha)
+
+        # Se foi fornecida uma nova foto, atualiza
         if foto:
             users.foto = foto
+
         users.save()
-        
-        if email_autrld: 
-            activation = request.build_absolute_uri(reverse("activate", kwargs={"id": cadastro.id}))
-       
+
+        # Se o e-mail foi alterado, envia o e-mail de ativação
+        if email_autrld:
+            activation = request.build_absolute_uri(reverse("activate", kwargs={"id": users.id}))
 
             subject = "Ative sua conta"
             html_message = render_to_string("activate.html", {
-            "username": cadastro.username,
-            "activation": activation
+                "username": users.username,
+                "activation": activation
             })
+
             send_mail(
                 subject,
-                f"Olá {cadastro.username}, clique no link para ativar sua conta: {activation}",
+                f"Olá {users.username}, clique no link para ativar sua conta: {activation}",
                 "jeielsantos29@gmail.com",  # Endereço do remetente
                 [user_email],  # Endereço do destinatário
                 fail_silently=False,
                 html_message=html_message
             )
-            messages.success(request,"Conta atualizada! Verifique seu novo email para ativação.")
+            messages.success(request, "Conta atualizada! Verifique seu novo email para ativação.")
         else:
-            messages.success(request,"Conta atualizada com sucesso!")
+            messages.success(request, "Conta atualizada com sucesso!")
+
         return redirect('perfil')
-    return render(request,'update.html', {'users':users})
+
+   

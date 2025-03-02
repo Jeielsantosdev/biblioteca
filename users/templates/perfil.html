@@ -38,7 +38,12 @@
 
 <!-- CONTEÚDO DE CADASTRO USUARIO -->
     {% if user.is_authenticated %}
+    <li>
         
+        <img src=" {{user.foto.url}} " alt="Imagem de perfil" class="img-perfil">
+       
+    
+    </li>
     {% endif %}
     <form action=" {% url 'perfil' %} " method="GET" class="formulario-cadastro">
         {% if user.is_authenticated %}
@@ -71,12 +76,10 @@
                 Deletar Conta
             </button>
         </form>
-        <form action="{% url 'update'  %}" method="POST" >
-            {% csrf_token %}
-            <button class="deletar">
-                update
-            </button>
-        </form>
+        <a class="deletar" href=" {% url 'update' %} ">
+            update
+        </a>
+        
     </div>
     
     
