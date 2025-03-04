@@ -37,7 +37,7 @@ def cadastro(request):
         username = request.POST.get('username')
         user_email = request.POST.get('user_email')
         date_birth = request.POST.get('date_birth')
-        senha = request.POST.get('senha')
+        password = request.POST.get('senha')
         foto = request.FILES.get('foto')
         #login(request, user)
 
@@ -50,12 +50,12 @@ def cadastro(request):
             messages.error(request,'Erro: E-mail já cadastrado')
             return redirect('cadastro')
         try:
-            validate_password(senha)
+            validate_password(password)
         except ValidationError as e:
             messages.error(request, str(e))  # Exibir mensagem de erro para o usuário
             return redirect('cadastro')
 
-        cadastro = Cadastro(username=username,user_email=user_email,date_birth=date_birth,senha=make_password(senha),foto=foto, is_active=False)
+        cadastro = Cadastro(username=username,user_email=user_email,date_birth=date_birth,password=make_password(password),foto=foto, is_active=False)
         
         cadastro.save()
 
@@ -97,12 +97,13 @@ def activate(request, id):
 def login_view(request):
     if request.method == "POST":
         user_email = request.POST.get('user_email')
-        senha = request.POST.get("senha")
+        password = request.POST.get("senha")
         
         try:
-            user = authenticate(request, user_email=user_email, senha=senha)
-           
-            
+            user = authenticate(request, user_email=user_email, password=password)
+            print(user_email)
+            print(password)
+            print(user)
             if user is not None:  # Verifica a senha de forma segura
                 if user.is_active:
                     user.last_login = now()
@@ -170,7 +171,7 @@ def update_view(request):
     if request.method == "POST":
         username = request.POST.get('username', '').strip()  # Se não preencher, vai ser vazio
         user_email = request.POST.get('user_email', '').strip()
-        senha = request.POST.get('senha', '').strip()
+        password = request.POST.get('senha', '').strip()
         foto = request.FILES.get('foto')
 
         email_autrld = False
@@ -185,8 +186,8 @@ def update_view(request):
             users.user_email = user_email
 
         # Se a senha foi preenchida, atualiza
-        if senha:
-            users.set_password(senha)
+        if password:
+            users.set_password(password)
 
         # Se foi fornecida uma nova foto, atualiza
         if foto:
@@ -218,4 +219,3 @@ def update_view(request):
 
         return redirect('perfil')
 
-   

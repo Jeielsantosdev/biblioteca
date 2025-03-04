@@ -38,12 +38,12 @@
 
 <!-- CONTEÚDO DE CADASTRO USUARIO -->
     {% if user.is_authenticated %}
-    <li>
-        
-        <img src=" {{user.foto.url}} " alt="Imagem de perfil" class="img-perfil">
-       
     
-    </li>
+        <li class="container-perfil">
+            <img src=" {{user.foto.url}} " alt="Imagem de perfil" class="img-perfil">
+        </li>
+    
+    
     {% endif %}
     <form action=" {% url 'perfil' %} " method="GET" class="formulario-cadastro">
         {% if user.is_authenticated %}
@@ -66,7 +66,7 @@
         {% endif %}
     </form>
 
-    <div class="d-flex flex-column mt-3 justify-content-center align-items-center">
+    <div class="d-flex flex-column justify-content-center align-items-center">
         <a class="voltar" href=" {% url 'home' %} ">
             Voltar
         </a>

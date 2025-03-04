@@ -119,8 +119,8 @@ html{
 
 
 .img-perfil { 
-    width: 9rem; /* Ajuste conforme necessário */
-    height: 9rem; /* Deve ser igual à largura para manter o formato circular */
+    width: 60px; /* Ajuste conforme necessário */
+    height: 60px; /* Deve ser igual à largura para manter o formato circular */
     border-radius: 50%; /* Transforma a imagem em um círculo */
     object-fit: cover; /* Garante que a imagem seja bem ajustada dentro do círculo */
      /* Opcional: adiciona uma borda branca */
@@ -145,10 +145,12 @@ html{
 .sidebar-nav{
     display: flex;
     flex-direction: column;
+    align-items: center;
     list-style-type: none;
     gap: 7vh;
     margin: 0;
-    padding: 11rem 0;
+    /* margin-left: -1; */
+    padding: 10rem 1.5rem 0 ;
 
 }
 
@@ -178,4 +180,30 @@ html{
     color: white;
     outline: 0.2px solid rgba(255, 255, 255, 0.677);
     
+}
+
+
+.texto_caixa_logout a{ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    width: 13vw;
+    height: 6vh;
+    margin-top: 20vh;
+    background-color: var(--color-button);
+    border-radius: 40px;
+    font-family: sans-serif;
+    font-size: 1.6rem;
+    box-shadow: .4px 1px 5px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    transition: background-color 0.5s, color 0.5s, outline 0.5s;
+}
+
+.texto_caixa_logout a:hover { 
+    text-decoration: none;
+    background-color: var(--secondary-color-button);
+    color: white;
+    outline: 0.2px solid rgba(255, 255, 255, 0.677);
 }

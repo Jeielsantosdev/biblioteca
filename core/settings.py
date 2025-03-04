@@ -27,9 +27,12 @@ SECRET_KEY = 'django-insecure-hcuaj-ohm4y(1vqgdla=v49s4ohjx*s%-*)k2^%mzwka@qr)+(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
- # Substitua "seu_app" pelo nome do seu aplicativo
+ 
 
-AUTHENTICATION_BACKENDS = ['users.authenticatio_backends.BackendDeAutenticacao']
+
+
+# settings.py
+
 
 
 load_dotenv()
@@ -44,6 +47,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://*.ngrok-free.app",  # Tenta com http, se não funcionar o https
     "https://*.ngrok-free.app",  # Para https
 ]
+
+AUTH_USER_MODEL = 'users.Cadastro'
 
 
 
@@ -71,8 +76,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'core.urls'
 
-LOGIN_REDIRECT_URL = '/' 
-LOGIN_URL = '/login/'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home' 
+
+
+AUTHENTICATION_BACKENDS = ['users.backends.BackendDeAutenticacao',
+                           'users.backends.EmailBackend']
 
 
 TEMPLATES = [
