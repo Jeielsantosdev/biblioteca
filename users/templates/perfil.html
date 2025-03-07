@@ -37,6 +37,23 @@
 
 
 <!-- CONTEÚDO DE CADASTRO USUARIO -->
+<div class="d-flex justify-content-end mt-5">
+    <form action="{% url 'delete' user.id %}" method="POST" >
+        {% csrf_token %}
+    </form>
+    <a class="deletar" href=" {% url 'update' %} ">
+        update
+    </a>
+    <button type="submit" onclick="return confirm('Tem certeza que deseja excluir sua conta?')" class="deletar">
+        Deletar Conta
+    </button>
+    <a class="voltar" href=" {% url 'home' %} ">
+        Voltar
+    </a>
+    
+</div>
+
+
     {% if user.is_authenticated %}
     
         <li class="container-perfil">
@@ -49,7 +66,7 @@
         {% if user.is_authenticated %}
         <div class="d-flex  flex-column">
             <div class="content-formulario m-auto">
-                <label for="nome" class="label"> {{user.username}} </label>
+                <label for="nome" class="label">  {{user.username}} </label>
                 
             </div>
 
@@ -65,22 +82,6 @@
         </div>
         {% endif %}
     </form>
-
-    <div class="d-flex flex-column justify-content-center align-items-center">
-        <a class="voltar" href=" {% url 'home' %} ">
-            Voltar
-        </a>
-        <form action="{% url 'delete' user.id %}" method="POST" >
-            {% csrf_token %}
-            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir sua conta?')" class="deletar">
-                Deletar Conta
-            </button>
-        </form>
-        <a class="deletar" href=" {% url 'update' %} ">
-            update
-        </a>
-        
-    </div>
     
     
 

@@ -10,7 +10,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import re
-
+from book.models import Livros
 
 
 
@@ -134,8 +134,10 @@ def user_logout(request):
 @login_required
 def home(request):
     if request.method == "GET":
+        livros = Livros.objects.all()
         cadastro = Cadastro.objects.all()
-    return render(request, "home.html", {'cadastro':cadastro})
+  
+    return render(request, "home.html", {'cadastro':cadastro, 'livros':livros})
 @login_required
 def perfil_view(request):
     
