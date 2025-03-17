@@ -6,20 +6,30 @@ from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 class UsuarioManager(BaseUserManager):
-    def create_user(self, user_email, username, password=None, **extra_fields):
+    def create_user(self, user_email, password=None, **extra_fields):
         if not user_email:
             raise ValueError("O campo email é obrigatório")
-        email = self.normalize_email(user_email)
-        user = self.model(user_email=user_email, username=username, **extra_fields)
+        user = self.model(user_email=user_email, **extra_fields)
         user.set_password(password)  # Usa o método seguro do Django
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, user_email, username, password=None, **extra_fields):
+    def create_superuser(self, user_email,  password=None,nome_biblioteca=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
-        return self.create_user(user_email, username, password, **extra_fields)
+
+        user = self.create_user(user_email,password, **extra_fields)
+
+        if not nome_biblioteca:
+            raise ValueError("O nome da biblioteca é obrigratorio!")
+        from book.models import Biblioteca
+        Biblioteca.objects.create(
+            name_biblioteca=nome_biblioteca,
+            usuario_admin=user
+        )
+
+        return user
 
 
 class Cadastro(AbstractBaseUser, PermissionsMixin):
@@ -47,7 +57,7 @@ class Cadastro(AbstractBaseUser, PermissionsMixin):
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'user_email'
-    
+    print(USERNAME_FIELD)
     
     def __str__(self):
-        return f'{self.username} | {self.user_email}'
+        return self.user_email

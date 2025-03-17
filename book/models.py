@@ -1,20 +1,23 @@
 from django.db import models
 from datetime import date
-import datetime
 from django.utils import timezone
-from django.db.models.base import Model
 from users.models import Cadastro
+from django.conf import settings
 # Create your models here.
 
 # endereco
 
 # biblioteca
+
 class Biblioteca(models.Model):
     name_biblioteca = models.CharField(max_length=222)
-    cep = models.IntegerField()
+    cep = models.CharField(max_length=9)  # Melhor usar CharField para evitar problemas com CEP
     rua = models.CharField(max_length=100)
     bairro = models.CharField(max_length=100)
-    
+    usuario_admin = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="biblioteca"
+    )  # Relacionando a biblioteca a um usuário administrador
+
     def __str__(self):
         return self.name_biblioteca
     
@@ -34,14 +37,17 @@ class Livros(models.Model):
     autor = models.CharField(max_length=100)
     foto = models.ImageField(upload_to='fotos')
     descricao = models.TextField()
-    emprestato = models.BooleanField(default=False)
+    emprestado = models.BooleanField(default=False)  # Corrigido o nome do campo
     categoria = models.ForeignKey(Categorias, on_delete=models.DO_NOTHING)
     quantidade = models.IntegerField()
-    data_cadastro = models.DateField(default= date.today)
-    biblioteca = models.ForeignKey(Biblioteca, on_delete=models.DO_NOTHING)
+    data_cadastro = models.DateField(default=date.today)
+    biblioteca = models.ForeignKey(
+        Biblioteca, on_delete=models.CASCADE, related_name="livros"
+    )  # Livros pertencem a uma única biblioteca
 
     class Meta:
         verbose_name = 'Livro'
+
     def __str__(self):
         return self.titulo
     
