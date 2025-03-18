@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 urlpatterns = [
-    path('livro/', views.livro, name='livro'),
-    path('emprestimo/',views.emprestimo, name='emprestimo')
+    path('emprestimo/',views.emprestimo, name='emprestimo'),
+    path('', views.home, name='home'),
+    path('livro/<int:pk>/', views.livro, name='livro'),
 ]

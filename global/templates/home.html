@@ -76,7 +76,26 @@
 
 
 
+<div class="container-principal">
+    <div class="book-grid">
+        {% for livro in livros %}
+            <div class="book-card">
+                <!-- Imagem da capa -->
+                <!-- Observação: verifique se o campo do modelo chama "capa" ou "imagem" -->
+                <img src="{{ livro.foto.url }}" alt="{{ livro.titulo }}" class="book-cover">
 
+                <!-- Título -->
+                <h3>{{ livro.titulo }}</h3>
+
+                <!-- Categoria -->
+                <p>{{ livro.categoria }}</p>
+
+                <!-- Link para detalhes -->
+                <a href="{% url 'detalhes_livro' livro.pk %}">Ver detalhes</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 
 

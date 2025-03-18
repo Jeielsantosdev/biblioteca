@@ -83,7 +83,8 @@ LOGIN_REDIRECT_URL = 'home'
 
 
 AUTHENTICATION_BACKENDS = ['users.backends.BackendDeAutenticacao',
-                           'users.backends.EmailBackend']
+                           #'users.backends.EmailBackend',
+                           ]
 
 
 TEMPLATES = [
@@ -169,6 +170,10 @@ MESSAGE_TAGS = {
 }
 
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 
   # Certifique-se de estar usando o backend de sessões correto

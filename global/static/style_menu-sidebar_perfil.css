@@ -170,3 +170,44 @@ html{
     outline: 0.2px solid rgba(255, 255, 255, 0.677);
     
 }
+
+
+/* Container que envolve o grid */
+.container-principal {
+    margin-left: 17vw; /* Compensa a sidebar de 17vw */
+    padding: 2rem;     /* Espaçamento interno */
+    min-height: calc(100vh - 15vh); /* Para ocupar a área livre abaixo do header */
+    box-sizing: border-box;
+  }
+  
+  /* Grid principal */
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 2rem; /* Espaçamento entre colunas e linhas */
+  }
+  
+  /* Cartão de cada livro */
+  .book-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  /* Efeito hover */
+  .book-card:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Imagem da capa */
+  .book-cover {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover; /* Ajusta a imagem dentro do card */
+    margin-bottom: 1rem;
+  }
+  

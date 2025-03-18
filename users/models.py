@@ -57,7 +57,7 @@ class Cadastro(AbstractBaseUser, PermissionsMixin):
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'user_email'
-    print(USERNAME_FIELD)
+
     
     def __str__(self):
         return self.user_email

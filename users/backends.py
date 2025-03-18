@@ -28,7 +28,7 @@ class BackendDeAutenticacao(ModelBackend):
 # backend.py
 from django.contrib.auth.backends import BaseBackend
 from .models import Cadastro  # Ajuste para o caminho correto do seu modelo
-
+'''
 class EmailBackend(BaseBackend):
     def authenticate(self, request, user_email=None, password=None):
         try:
@@ -36,4 +36,6 @@ class EmailBackend(BaseBackend):
             if user.check_password(password):
                 return user
         except Cadastro.DoesNotExist:
-            return None
+            return None'
+            '''
+
